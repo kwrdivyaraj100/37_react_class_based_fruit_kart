@@ -31,6 +31,29 @@ export default class Products extends Component {
         }
     }
 
+    sortAlphabetAscending = () => {
+        let { productsList } = this.state.setProducts;
+        let sorted = [...productsList].sort((a, b) => a.name.toLowerCase() < b.name.toLowerCase() ? -1 : 1);
+        this.setState({ setProducts: { ...this.state.setProducts, productsList: sorted } });
+    };
+
+    sortAlphabetDescending = () => {
+        let { productsList } = this.state.setProducts;
+        let sorted = [...productsList].sort((a, b) => a.name.toLowerCase() < b.name.toLowerCase() ? 1 : -1);
+        this.setState({ setProducts: { ...this.state.setProducts, productsList: sorted } });
+    };
+
+    sortPriceAscending = () => {
+        let { productsList } = this.state.setProducts;
+        let sorted = [...productsList].sort((a, b) => a.price - b.price);
+        this.setState({ setProducts: { ...this.state.setProducts, productsList: sorted } });
+    };
+
+    sortPriceDescending = () => {
+        let { productsList } = this.state.setProducts;
+        let sorted = [...productsList].sort((a, b) => b.price - a.price);
+        this.setState({ setProducts: { ...this.state.setProducts, productsList: sorted } });
+    };
 
     render() {
         const { flag, productsList } = this.state.setProducts;

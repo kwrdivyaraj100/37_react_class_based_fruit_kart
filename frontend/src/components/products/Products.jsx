@@ -1,5 +1,7 @@
 import React, { Component } from 'react';
 import './Products.css';
+import Dropdown from 'react-bootstrap/Dropdown';
+import DropdownButton from 'react-bootstrap/DropdownButton';
 
 export default class Products extends Component {
     constructor(props) {
@@ -7,14 +9,15 @@ export default class Products extends Component {
         this.state = {
             setProducts: {
                 flag: false,
-                productsList: null
-            }
-        }
+                productsList: null,
+            },
+        };
     }
 
     async componentDidMount() {
         await this.getData();
     }
+
     async getData() {
         let backend_url = 'http://localhost:3300/products';
         let response = await fetch(backend_url);
@@ -22,45 +25,55 @@ export default class Products extends Component {
             let responseData = await response.json();
             this.setState({
                 setProducts: { flag: true, productsList: responseData['productItems'] },
-            })
-        }
-        else {
+            });
+        } else {
             console.log('error');
         }
     }
+
+
     render() {
         const { flag, productsList } = this.state.setProducts;
-        const {handleAddProduct} = this.props;
+        const { handleAddProduct } = this.props;
+
         return (
-            (flag) ?
+            flag ? (
                 <div className='products-container'>
-                    <div className='products'>
-                        {productsList.map(item => {
-                            return (
-                                <div className='card' key={item.name}>
-                                    <div>
-                                        <img className='product-image' src={item.image} alt={item.image} />
-                                    </div>
-                                    <div>
-                                        <h2 className='product-name'>{item.name}</h2>
-                                    </div>
-                                    <div className='product-price'>
-                                        {item.price}/-
-                                    </div>
-                                    <div>
-                                        <button className='product-add-button'
-                                            onClick={() => handleAddProduct(item)}>Add to Cart</button>
-                                    </div>
-                                </div>
-                            )
-                        })}
+
+                    <div className="sort-button">
+                        <DropdownButton variant="success" title="Sort By ">
+                            <Dropdown.Item eventKey="1" onClick={this.sortAlphabetAscending}>A -to- Z</Dropdown.Item>
+                            <Dropdown.Item eventKey="2" onClick={this.sortAlphabetDescending}>Z -to- A</Dropdown.Item>
+                            <Dropdown.Divider />
+                            <Dropdown.Item eventKey="3" onClick={this.sortPriceDescending}>High to Low</Dropdown.Item>
+                            <Dropdown.Item eventKey="4" onClick={this.sortPriceAscending}>Low to High</Dropdown.Item>
+                        </DropdownButton>
                     </div>
-                </div> : <div><h1>Loading..!!</h1></div>
+
+                    <div className='products'>
+                        {productsList.map((item) => (
+                            <div className='card' key={item.name}>
+                                <div>
+                                    <img className='product-image' src={item.image} alt={item.image} />
+                                </div>
+                                <div>
+                                    <h2 className='product-name'>{item.name}</h2>
+                                </div>
+                                <div className='product-price'>
+                                    {item.price}/-
+                                </div>
+                                <div>
+                                    <button
+                                        className='product-add-button'
+                                        onClick={() => handleAddProduct(item)}>Add to Cart</button>
+                                </div>
+                            </div>
+                        ))}
+                    </div>
+                </div>
+            ) : (
+                <div><h1>Loading..!!</h1></div>
+            )
         );
     }
 }
-
-
-
-
-

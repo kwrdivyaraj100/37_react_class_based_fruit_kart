@@ -4,6 +4,7 @@ import './Header.css';
 
 export default class Header extends Component {
     render() {
+        const {cartItems} =this.props;
         return (
             <header className='header'>
                 <div>
@@ -29,6 +30,7 @@ export default class Header extends Component {
                             <Link to="/cart" className='cart'>
                                 <i className='fas fa-shopping-cart' />
                                 <span className='cart-length'>
+                                    {cartItems.length}
 
                                 </span>
                             </Link>

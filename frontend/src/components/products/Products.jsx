@@ -30,6 +30,7 @@ export default class Products extends Component {
     }
     render() {
         const { flag, productsList } = this.state.setProducts;
+        const {handleAddProduct} = this.props;
         return (
             (flag) ?
                 <div className='products-container'>
@@ -48,7 +49,7 @@ export default class Products extends Component {
                                     </div>
                                     <div>
                                         <button className='product-add-button'
-                                            onClick={() => this.handleAddProduct(item)}>Add to Cart</button>
+                                            onClick={() => handleAddProduct(item)}>Add to Cart</button>
                                     </div>
                                 </div>
                             )

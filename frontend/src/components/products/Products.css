@@ -45,7 +45,7 @@
     line-height: 30px;
 }
 
-.product-add-button{
+.product-add-button {
     font-weight: 700;
     font-size: 18px;
     border: 2px solid black;
@@ -58,6 +58,10 @@
     margin: 15px auto;
 }
 
-.product-add-button:hover{
+.product-add-button:hover {
     background-color: red;
+}
+
+.product-add-button:active {
+    transform: translateY(2px);
 }
